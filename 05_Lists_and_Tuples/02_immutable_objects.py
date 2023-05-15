@@ -5,3 +5,6 @@ print(id(another_result))
 
 result = False
 print((id(result)))
+
+result = "Correct"
+another_result = result
