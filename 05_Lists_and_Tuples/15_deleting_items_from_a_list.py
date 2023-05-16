@@ -23,6 +23,9 @@ print(data)
 start = 0
 for index in range(len(data)-1, -1, -1):
     if data[index] <= max_valid:
+        # We have the index of the last item to keep
+        # Set 'start' to the position of the first
+        # item to delete, which is 1 after 'index'
         start = index + 1
         break
 print(start)
