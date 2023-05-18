@@ -8,6 +8,7 @@ def my_range(n: int):
         yield start
         start += 1
 
+
 _ = input("line 11")
 big_range = my_range(5)
 print(f"big_range is {sys.getsizeof(big_range)}")
@@ -18,5 +19,3 @@ for val in big_range:
     big_list.append(val)
 
 print(f"big_list is {sys.getsizeof(big_list)}")
-
-for 
