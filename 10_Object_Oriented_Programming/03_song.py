@@ -135,7 +135,7 @@ def create_checkfile(artist_list):
             for album in artist.albums:
                 for song in album.tracks:
                     checkfile.write(
-                        f"{artist.name}\t{album.name}\t{album.year}\t{song.title}\t{song.artist.name}\t{song.duration}\n"
+                        f"{artist.name}\t{album.name}\t{album.year}\t{song.title}\n"
                     )
 
 
