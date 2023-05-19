@@ -1,26 +1,12 @@
 from player_04 import Player
+from enemy_04 import Enemy
 
-player_01 = Player('Okan')
+player_01 = Player("Okan")
+random_monster_01 = Enemy("Basic enemy", 12, 1)
+print(random_monster_01)
 
-print(player_01.name)
-print(player_01.lives)
-player_01.lives -= 1
-print(player_01)
+random_monster_01.take_damage(10)
+print(random_monster_01)
 
-player_01.lives -= 1
-print(player_01)
-
-player_01.lives -= 1
-print(player_01)
-
-player_01.lives -= 1
-print(player_01)
-
-player_01.level += 8
-print(player_01)
-
-player_01.level -= 4
-print(player_01)
-
-player_01.score += 1
-print(player_01)
+random_monster_01.take_damage(10)
+print(random_monster_01)
