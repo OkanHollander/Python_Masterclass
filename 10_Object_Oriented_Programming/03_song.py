@@ -39,10 +39,11 @@ class Album:
         """
         self.name = name
         self.year = year
-        if self.artist is not None:
-            self.artist = artist
+        if artist is None:
+            self.artist = Artist("Various Artists")
         else:
-            self.artist = Artist("Various artist")
+            self.artist = artist
+
         self.tracks = []
 
     def add_song(self, song, position=None):
@@ -97,7 +98,48 @@ def load_data():
                 line.strip("\n").split("\t")
             )
             year_field = int(year_field)
-            print(artist_field, albums_field, year_field, song_field)
+            print(f"{artist_field} : {albums_field} : {year_field} : {song_field}")
+
+            if new_artist is None:
+                new_artist = Artist(artist_field)
+            elif new_artist.name != artist_field:
+                # we've just read details for a new artist
+                new_artist.add_album(new_album)
+                artist_list.append(new_artist)
+                new_artist = Artist(artist_field)
+                new_album = None
+
+            if new_album is None:
+                new_album = Album(albums_field, year_field, new_artist)
+            elif new_album.name != albums_field:
+                # we've just read details for a new album
+                new_artist.add_album(new_album)
+                new_album = Album(albums_field, year_field, new_artist)
+
+            # create a new song object and add it to the current albums's collection
+            new_song = Song(song_field, new_artist, year_field)
+            new_album.add_song(new_song)
+        # After reading the last line of the text file, we have an artist and album that havn't been store,
+        # process them now
+        if new_artist is not None:
+            if new_album is not None:
+                new_artist.add_album(new_album)
+            artist_list.append(new_artist)
+    return artist_list
+
+
+def create_checkfile(artist_list):
+    """Creates a check file from the object data for comparison with the original file"""
+    with open("checkfile.txt", "w") as checkfile:
+        for artist in artist_list:
+            for album in artist.albums:
+                for song in album.tracks:
+                    checkfile.write(
+                        f"{artist.name}\t{album.name}\t{album.year}\t{song.title}\t{song.artist.name}\t{song.duration}\n"
+                    )
+
 
 if __name__ == "__main__":
-    load_data()
+    artist = load_data()
+    print(f"There are {len(artist)} artists")
+    create_checkfile(artist)
