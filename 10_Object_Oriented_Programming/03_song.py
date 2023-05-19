@@ -21,7 +21,7 @@ class Song:
 class Album:
     """Class to represent an album, using it's track list
     Attributes:
-        album_name (str): name of the album
+        name (str): name of the album
         year (int): year of the album
         artist (Artist): artist of the album
             If not specified, the artist will default to an artist with the name "Various artist
@@ -37,7 +37,7 @@ class Album:
             artist (Artist): artist of the album
                 If not specified, the artist will default to an artist with the name "Various artist
         """
-        self.album_name = name
+        self.name = name
         self.year = year
         if self.artist is not None:
             self.artist = artist
@@ -56,3 +56,48 @@ class Album:
             self.tracks.append(song)
         else:
             self.tracks.insert(position, song)
+
+
+class Artist:
+    """Class to represent an artist
+    Attributes:
+        name (str): name of the artist
+        albums (list[Album]): list of albums of the artist
+
+    Methods:
+        add_album: adds an album to the artist"""
+
+    def __init__(self, name):
+        """Initializes an artist object
+        Args:
+            name (str): name of the artist
+        """
+        self.name = name
+        self.albums = []
+
+    def add_album(self, album):
+        """Adds an album to the artist
+        Args:
+            album (Album): album to add
+                if album is present it will not be added
+        """
+        if album not in self.albums:
+            self.albums.append(album)
+
+
+def load_data():
+    new_artist = None
+    new_album = None
+    artist_list = []
+
+    with open("albums.txt", "r") as albums:
+        for line in albums:
+            # data row should consist of (artist, album, year, song)
+            artist_field, albums_field, year_field, song_field = tuple(
+                line.strip("\n").split("\t")
+            )
+            year_field = int(year_field)
+            print(artist_field, albums_field, year_field, song_field)
+
+if __name__ == "__main__":
+    load_data()
