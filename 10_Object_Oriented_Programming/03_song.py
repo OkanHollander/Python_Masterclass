@@ -2,7 +2,7 @@ class Song:
     """Class to represent a song
     Attributes:
         title (str): title of the song
-        artist (Artist): artist of the song
+        artist (str): The name of the songs creator
         duration (int): duration of the song
     """
 
@@ -10,7 +10,7 @@ class Song:
         """Initializes a song object
         Args:
             title (str): title of the song
-            artist (Artist): artist of the song
+            artist (str): artist of the song
             duration (int): duration of the song
         """
         self.title = title
@@ -27,7 +27,7 @@ class Album:
     Attributes:
         name (str): name of the album
         year (int): year of the album
-        artist (Artist): artist of the album
+        artist (str): The name of the artist of the album
             If not specified, the artist will default to an artist with the name "Various artist
         tracks (list[Song]): list of songs in the album
     Methods:
@@ -44,7 +44,7 @@ class Album:
         self.name = name
         self.year = year
         if artist is None:
-            self.artist = Artist("Various Artists")
+            self.artist = "Various Artists"
         else:
             self.artist = artist
 
@@ -105,7 +105,7 @@ class Artist:
         album_found = find_object(name, self.albums)
         if album_found is None:
             print(f"Album {name} not found")
-            album = Album(name, year)
+            album = Album(name, year, self.name)
             self.albums.append(album)
             album_found = album
         else:
