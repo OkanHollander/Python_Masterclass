@@ -21,3 +21,6 @@ print(player_01)
 
 player_01.level -= 4
 print(player_01)
+
+player_01.score += 1
+print(player_01)

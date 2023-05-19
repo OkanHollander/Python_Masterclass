@@ -3,7 +3,7 @@ class Player(object):
         self.name = name
         self._lives = 3
         self._level = 1
-        self.score = 0
+        self._score = 0
 
     def _get_lives(self):
         return self._lives
@@ -21,14 +21,21 @@ class Player(object):
     def _set_level(self, level):
         if level > 0:
             delta = level - self._level
-            self.score += delta * 1000
+            self._score += delta * 1000
             self._level = level
         else:
             print("You can't have a negative level")
             
+    @property
+    def score(self):
+        return self._score
+    
+    @score.setter
+    def score(self, score):
+        self._score = score
 
     lives = property(_get_lives, _set_lives)
     level = property(_get_level, _set_level)
 
     def __str__(self) -> str:
-        return f"Name: {self.name}, Lives: {self.lives}, Level {self.level}, Score: {self.score}"
+        return f"Name: {self.name}, Lives: {self._lives}, Level {self._level}, Score: {self._score}"
