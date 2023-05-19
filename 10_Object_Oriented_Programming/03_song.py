@@ -17,6 +17,10 @@ class Song:
         self.artist = artist
         self.duration = duration
 
+    def get_title(self):
+        return self.title
+    
+    name = property(get_title)
 
 class Album:
     """Class to represent an album, using it's track list
@@ -49,14 +53,17 @@ class Album:
     def add_song(self, song, position=None):
         """Adds a song to the album
         Args:
-            song (Song): song to add
+            song (Song): The title of the song to add
             position (int): position to add the song
             If not specified, the song will be added to the end of the list
         """
-        if position is None:
-            self.tracks.append(song)
-        else:
-            self.tracks.insert(position, song)
+        song_found = find_object(song, self.tracks)
+        if song_found is None:
+            song_found = Song(song, self.artist)
+            if position is None:
+                self.tracks.append(song_found)
+            else:
+                self.tracks.insert(position, song_found)
 
 
 class Artist:
@@ -84,12 +91,12 @@ class Artist:
         """
         if album not in self.albums:
             self.albums.append(album)
-    
+
     def add_song(self, name, year, title):
         """Add a new song to the collection of albums
         This method will add the song to tan album in the collection.
         A new album will be created in the collection if it doesn't already exists.
-        
+
         Args:
             name (str): name of the album
             year (int): year of the album
@@ -104,7 +111,6 @@ class Artist:
         else:
             print(f"Album {name} already exists")
         album_found.add_song(title)
-
 
 
 def find_object(field, object_list):
