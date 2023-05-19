@@ -19,3 +19,6 @@ class Enemy:
 class Troll(Enemy):
     def __init__(self, name="Troll", hit_points=0, lives=1) -> None:
         super().__init__(name, hit_points, lives)
+    
+    def grunt(self):
+        print(f"{self.name} is grunting!")

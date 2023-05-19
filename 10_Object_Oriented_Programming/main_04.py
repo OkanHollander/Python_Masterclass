@@ -19,3 +19,4 @@ print(another_troll)
 
 brother_troll = Troll("Brother troll", 23)
 print(brother_troll)
+brother_troll.grunt()
