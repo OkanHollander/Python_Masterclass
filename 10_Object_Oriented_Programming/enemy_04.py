@@ -15,4 +15,7 @@ class Enemy:
     def __str__(self) -> str:
         return f"{self.name} has {self.hit_points} hit points and {self.lives} lives left."
     
-    
+
+class Troll(Enemy):
+    def __init__(self, name="Troll", hit_points=0, lives=1) -> None:
+        super().__init__(name, hit_points, lives)
